@@ -7,6 +7,19 @@ import (
 	"os"
 )
 
+var numericKeyboard = tgbotapi.NewReplyKeyboard(
+	tgbotapi.NewKeyboardButtonRow(
+		tgbotapi.NewKeyboardButton("1"),
+		tgbotapi.NewKeyboardButton("2"),
+		tgbotapi.NewKeyboardButton("3"),
+	),
+	tgbotapi.NewKeyboardButtonRow(
+		tgbotapi.NewKeyboardButton("4"),
+		tgbotapi.NewKeyboardButton("5"),
+		tgbotapi.NewKeyboardButton("6"),
+	),
+)
+
 func main() {
 	token := os.Getenv("TELEGRAM_BOT_TOKEN")
 
@@ -29,13 +42,22 @@ func main() {
 			continue
 		}
 
-		// log.Printf("[%s] %s", update.Message.From.UserName, update.Message.Text)
-
-		replyText := processMessage(update.Message.Text)
-
-		msg := tgbotapi.NewMessage(update.Message.Chat.ID, replyText)
-		msg.ReplyToMessageID = update.Message.MessageID
+		msg := processUpdate(update)
 
 		bot.Send(msg)
 	}
+}
+
+func processUpdate(update tgbotapi.Update) tgbotapi.Message {
+	// log.Printf("[%s] %s", update.Message.From.UserName, update.Message.Text)
+
+	replyText := replyMessageText(update.Message.Text)
+
+	msg := tgbotapi.NewMessage(update.Message.Chat.ID, replyText)
+	msg.ReplyToMessageID = update.Message.MessageID
+
+	if update.Message.Text == "/start" {
+		msg.ReplyMarkup = numericKeyboard
+	}
+	return msg
 }

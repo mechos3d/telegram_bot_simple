@@ -4,14 +4,14 @@ import (
 	"testing"
 )
 
-func TestProcessMessage(t *testing.T) {
+func TestReplyMessageText(t *testing.T) {
 
 	in := "/start"
 	want := "you typed /start"
-	got := processMessage(in)
+	got := replyMessageText(in)
 
 	if got != want {
-		t.Fatalf(`FAIL: processMessage(%s) = %s want %s`, in, got, want)
+		t.Fatalf(`FAIL: replyMessageText(%s) = %s want %s`, in, got, want)
 	}
-	t.Log("PASS:", "processMessage")
+	t.Log("PASS:", "replyMessageText")
 }

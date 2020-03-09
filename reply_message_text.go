@@ -6,7 +6,9 @@ package main
 // "fmt"
 // )
 
-func processMessage(msg string) (result string) {
+// tgbotapi.Update
+
+func replyMessageText(msg string) (result string) {
 	switch msg {
 	case "/start":
 		result = "you typed /start"
