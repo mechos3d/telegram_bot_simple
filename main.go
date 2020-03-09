@@ -48,7 +48,7 @@ func main() {
 	}
 }
 
-func processUpdate(update tgbotapi.Update) tgbotapi.Message {
+func processUpdate(update tgbotapi.Update) tgbotapi.Chattable {
 	// log.Printf("[%s] %s", update.Message.From.UserName, update.Message.Text)
 
 	replyText := replyMessageText(update.Message.Text)
